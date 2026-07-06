@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import './App.css'
+import "./App.css";
 
 const Modal = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -7,15 +7,27 @@ const Modal = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-        console.log(modalRef);
-        console.log(event);
-    }
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-    }
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
   }, []);
   return (
     <>
@@ -23,10 +35,10 @@ const Modal = () => {
 
       {isOpen && (
         <div className="modal">
-            <div className="modal-content" ref={modalRef}>
-                <h2>Modal</h2>
-                <button onClick={() => setIsOpen(false)}>Close Modal</button>
-            </div>
+          <div className="modal-content" ref={modalRef}>
+            <h2>Modal</h2>
+            <button onClick={() => setIsOpen(false)}>Close Modal</button>
+          </div>
         </div>
       )}
     </>
