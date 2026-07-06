@@ -22,12 +22,9 @@ A reusable and accessible **Modal (Dialog) Component** built using **React**. Th
 
 ```
 src/
-│── components/
-│   ├── Modal.jsx
-│   └── Modal.css
-│
-│── App.jsx
-│── main.jsx
+│── Modal.tsx
+│── App.tsx
+│── main.tsx
 ```
 
 ## 📖 How It Works
